@@ -3,13 +3,22 @@ import { useContext } from 'react';
 import styles from '../styles/styles.module.css'
 import { ProductContext } from './ProductCard';
 
-export const ProductButtons = () => {    //  ({counter, increaseBy}: ProductButtonsProps) => {
+export interface Props{
+    className? :string; //forma 1 de agregar style mediante className
+    style?:  React.CSSProperties; //forma 2 de agregar style mediante style. para saber que style es tipo React.CSSProperties | undefined en un div se agrega la etiqueta style y luego se pasa el cursos y aparece el tipo de dato
+}
+
+
+export const ProductButtons = ( {className, style} :Props ) => {    //  ({counter, increaseBy}: ProductButtonsProps) => {
 
     //useContext para extraer datos: counter, increaseBy evitando asi recibirlo por argumento
     const { increaseBy, counter } = useContext(ProductContext);
 
     return(
-        <div className={styles.buttonsContainer}>
+        <div 
+            className={`${styles.buttonsContainer} ${className}`}
+            style={style} //se agrega el style proveniente de la prop style definido en el padre ShoppingPage.tsx
+        >
         <button 
             className={styles.buttonMinus}
             onClick={ () => increaseBy( -1 )}
